@@ -1,55 +1,101 @@
 package com.ptr.android
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Modifier
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ptr.android.ui.theme.PTRTheme
 
 
-import android.content.Context
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 
+data class BottomNavigationItem(
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
+    val badgeCount: Int? = null,
+    val hasNews: Boolean,
+
+
+    ){
+
+}
+@OptIn(ExperimentalMaterial3Api::class)
 class MainPage : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PTRTheme {
+
+                var selectedItemIndex by rememberSaveable {
+                    mutableStateOf(0)
+                }
+                val menuItems = listOf(
+                    BottomNavigationItem(
+                        unselectedIcon = Icons.Outlined.Home,
+                        selectedIcon = Icons.Outlined.Home,
+                        hasNews = false,
+
+                        ),
+                    BottomNavigationItem(
+                        unselectedIcon = Icons.Outlined.Home,
+                        selectedIcon = Icons.Outlined.Email,
+                        hasNews = false,
+
+                        ),
+                    BottomNavigationItem(
+                        unselectedIcon = Icons.Outlined.Home,
+                        selectedIcon = Icons.Outlined.Home,
+                        hasNews = false,
+
+                        ),
+                    BottomNavigationItem(
+                        unselectedIcon = Icons.Outlined.Home,
+                        selectedIcon = Icons.Outlined.Home,
+                        hasNews = false,
+
+                        ),
+                    BottomNavigationItem(
+                        unselectedIcon = Icons.Outlined.Home,
+                        selectedIcon = Icons.Outlined.Home,
+                        hasNews = false,
+
+                        )
+                )
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 60.dp),
-
-                state = rememberLazyListState()
+                        .fillMaxSize(),
+                    state = rememberLazyListState()
                 ) {
                     items(1) {
                         Box(
@@ -74,7 +120,7 @@ class MainPage : ComponentActivity() {
                             }
                         }
                     }
-                    items(1){
+                    items(1) {
                         LazyRow(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -90,7 +136,7 @@ class MainPage : ComponentActivity() {
                                             .padding(10.dp),
 
 
-                                    )
+                                        )
                                     Image(
                                         painter = painterResource(id = R.drawable.second_main),
                                         contentDescription = null,
@@ -99,7 +145,7 @@ class MainPage : ComponentActivity() {
                                             .height(180.dp)
                                             .padding(10.dp),
 
-                                    )
+                                        )
                                     Image(
                                         painter = painterResource(id = R.drawable.third_main),
                                         contentDescription = null,
@@ -108,25 +154,80 @@ class MainPage : ComponentActivity() {
                                             .height(180.dp)
                                             .padding(10.dp),
 
-                                    )
+                                        )
                                 }
                             }
                         )
                     }
-                    items(1){
+                    items(1) {
                         Image(
                             painter = painterResource(id = R.drawable.botton_main),
-                            contentDescription = null,
+                            contentDescription = "Главная",
                             contentScale = ContentScale.FillWidth,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(top = 40.dp),
 
-                        )
+                            )
                     }
-
                 }
+
+// Нижняя панель навигации
+//                NavigationBar(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                    // Выравнивание навигационной панели внизу по центру
+//                )  {
+//                    menuItems.forEachIndexed { index, item ->
+//                        NavigationBarItem(
+//                            selected = selectedItemIndex == index,
+//                            onClick = {
+//                                selectedItemIndex = index
+//                                //nav
+//                                //
+//                            },
+//                            icon = {
+//                                BadgedBox(
+//                                    badge = {
+//                                        if (item.badgeCount != null) {
+//                                            Badge {
+//                                                Text(text = item.badgeCount.toString())
+//                                            }
+//                                        } else if (item.hasNews) {
+//                                            Badge()
+//                                        }
+//                                    }
+//                                ) {
+//                                    Icon(
+//                                        imageVector = if (index == selectedItemIndex) {
+//                                            item.selectedIcon
+//                                        } else item.unselectedIcon,
+//                                        contentDescription = "Главная"
+//                                    )
+//                                }
+//                            })
+//
+//                    }
+//                }
             }
         }
+
+//                Scaffold (
+//                    bottomBar = {
+//
+//                )
+//                {
+//                }
+        // }
     }
+}
+
+
+@Composable
+inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navController: NavController): T {
+    val navGraphRoute = destination.parent?.route ?: return viewModel()
+    val parentEntry = remember(this) {
+        navController.getBackStackEntry(navGraphRoute)
+    }
+    return viewModel(parentEntry)
 }
