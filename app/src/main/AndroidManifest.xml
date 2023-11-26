@@ -13,23 +13,26 @@
         android:theme="@style/Theme.PTR"
         tools:targetApi="31">
         <activity
+            android:name=".MapPage"
+            android:exported="false"
+            android:label="@string/title_activity_map_page"
+            android:theme="@style/Theme.PTR" />
+        <activity
             android:name=".autorization.ui.theme.Autorization"
             android:exported="true"
             android:label="@string/title_activity_autorization"
             android:theme="@style/Theme.PTR">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainPage"
             android:exported="false"
             android:label="@string/title_activity_main_page"
-            android:theme="@style/Theme.PTR">
-
-        </activity>
+            android:theme="@style/Theme.PTR"></activity>
     </application>
 
 </manifest>

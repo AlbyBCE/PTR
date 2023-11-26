@@ -1,5 +1,6 @@
 package com.ptr.android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,21 +35,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 
-data class BottomNavigationItem(
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val badgeCount: Int? = null,
-    val hasNews: Boolean,
 
-
-    ){
-
-}
 @OptIn(ExperimentalMaterial3Api::class)
 class MainPage : ComponentActivity() {
 
@@ -57,41 +50,7 @@ class MainPage : ComponentActivity() {
         setContent {
             PTRTheme {
 
-                var selectedItemIndex by rememberSaveable {
-                    mutableStateOf(0)
-                }
-                val menuItems = listOf(
-                    BottomNavigationItem(
-                        unselectedIcon = Icons.Outlined.Home,
-                        selectedIcon = Icons.Outlined.Home,
-                        hasNews = false,
 
-                        ),
-                    BottomNavigationItem(
-                        unselectedIcon = Icons.Outlined.Home,
-                        selectedIcon = Icons.Outlined.Email,
-                        hasNews = false,
-
-                        ),
-                    BottomNavigationItem(
-                        unselectedIcon = Icons.Outlined.Home,
-                        selectedIcon = Icons.Outlined.Home,
-                        hasNews = false,
-
-                        ),
-                    BottomNavigationItem(
-                        unselectedIcon = Icons.Outlined.Home,
-                        selectedIcon = Icons.Outlined.Home,
-                        hasNews = false,
-
-                        ),
-                    BottomNavigationItem(
-                        unselectedIcon = Icons.Outlined.Home,
-                        selectedIcon = Icons.Outlined.Home,
-                        hasNews = false,
-
-                        )
-                )
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -110,8 +69,11 @@ class MainPage : ComponentActivity() {
                                     .fillMaxSize()
 
                             )
+                            val context = LocalContext.current
                             Button(
-                                onClick = { /*TODO*/ },
+                                onClick = {
+                                    val intent = Intent(context, MapPage::class.java)
+                                    context.startActivity(intent) },
                                 modifier = Modifier
                                     .align(Alignment.BottomCenter)
                                     .padding(bottom = 30.dp)
@@ -172,53 +134,8 @@ class MainPage : ComponentActivity() {
                     }
                 }
 
-// Нижняя панель навигации
-//                NavigationBar(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                    // Выравнивание навигационной панели внизу по центру
-//                )  {
-//                    menuItems.forEachIndexed { index, item ->
-//                        NavigationBarItem(
-//                            selected = selectedItemIndex == index,
-//                            onClick = {
-//                                selectedItemIndex = index
-//                                //nav
-//                                //
-//                            },
-//                            icon = {
-//                                BadgedBox(
-//                                    badge = {
-//                                        if (item.badgeCount != null) {
-//                                            Badge {
-//                                                Text(text = item.badgeCount.toString())
-//                                            }
-//                                        } else if (item.hasNews) {
-//                                            Badge()
-//                                        }
-//                                    }
-//                                ) {
-//                                    Icon(
-//                                        imageVector = if (index == selectedItemIndex) {
-//                                            item.selectedIcon
-//                                        } else item.unselectedIcon,
-//                                        contentDescription = "Главная"
-//                                    )
-//                                }
-//                            })
-//
-//                    }
-//                }
             }
         }
-
-//                Scaffold (
-//                    bottomBar = {
-//
-//                )
-//                {
-//                }
-        // }
     }
 }
 
