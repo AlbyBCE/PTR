@@ -72,8 +72,9 @@ class MainPage : ComponentActivity() {
                             val context = LocalContext.current
                             Button(
                                 onClick = {
-                                    val intent = Intent(context, MapPage::class.java)
-                                    context.startActivity(intent) },
+                                    val intent = Intent(context, MapActivity::class.java)
+                                    context.startActivity(intent)
+                                          },
                                 modifier = Modifier
                                     .align(Alignment.BottomCenter)
                                     .padding(bottom = 30.dp)
@@ -106,7 +107,6 @@ class MainPage : ComponentActivity() {
                                         modifier = Modifier
                                             .height(180.dp)
                                             .padding(10.dp),
-
                                         )
                                     Image(
                                         painter = painterResource(id = R.drawable.third_main),
@@ -133,7 +133,6 @@ class MainPage : ComponentActivity() {
                             )
                     }
                 }
-
             }
         }
     }

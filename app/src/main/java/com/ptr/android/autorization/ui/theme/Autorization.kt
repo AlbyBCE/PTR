@@ -86,7 +86,7 @@ class Autorization : ComponentActivity() {
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(horizontal = 108.dp )
-                                            .padding(top = 160.dp, bottom = 80.dp)
+                                            .padding(top = 170.dp, bottom = 86.dp)
 
 
                                         )
@@ -168,26 +168,115 @@ class Autorization : ComponentActivity() {
                                 val context = LocalContext.current
 
                                 Column {
-                                    Text("Регистрация")
+                                    Image(
+                                        painter = painterResource(id = R.drawable.ptr),
+                                        contentDescription = null,
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 108.dp )
+                                            .padding(top = 100.dp, bottom = 30.dp)
+
+
+                                    )
+
+                                    Text(
+                                        text = "Регистрация",
+                                        Modifier.fillMaxWidth()
+                                            .padding(bottom = 20.dp),
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 22.sp,
+                                        fontFamily = FontFamily(Font(R.font.sfpro))
+
+                                    )
+
+                                    var nameState by remember { mutableStateOf("") }
+
+                                    OutlinedTextField(
+                                        value = nameState,
+                                        onValueChange = {
+                                            nameState = it
+                                        },
+                                        maxLines = 1,
+                                        keyboardOptions = KeyboardOptions(
+                                            imeAction = ImeAction.Next,
+                                            keyboardType = KeyboardType.Text
+                                        ),
+                                        placeholder = { Text("Имя") },
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp)
+                                            .padding(bottom = 20.dp)
+                                            .height(54.dp)
+                                    )
+                                    var surnameState by remember { mutableStateOf("") }
+
+                                    OutlinedTextField(
+                                        value = surnameState,
+                                        onValueChange = {
+                                            surnameState = it
+                                        },
+                                        maxLines = 1,
+                                        keyboardOptions = KeyboardOptions(
+                                            imeAction = ImeAction.Next,
+                                            keyboardType = KeyboardType.Text
+                                        ),
+                                        placeholder = { Text("Фамилия") },
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp)
+                                            .padding(bottom = 20.dp)
+                                            .height(54.dp)
+                                    )
+                                    var emailState by remember { mutableStateOf("") }
+                                    OutlinedTextField(
+                                        value = emailState,
+                                        onValueChange = {
+                                                emailState = it
+                                        },
+                                        maxLines = 1,
+                                        keyboardOptions = KeyboardOptions(
+                                            imeAction = ImeAction.Done,
+                                            keyboardType = KeyboardType.Email
+                                        ),
+                                        placeholder = { Text("E-mail") },
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp)
+                                            .padding(bottom = 20.dp)
+                                            .height(54.dp)
+                                    )
                                     Button(onClick = {
                                         val intent = Intent(context, MainPage::class.java)
                                         context.startActivity(intent)
-                                    }) {
-                                        Text(text = "Зарегестрироваться")
+                                    },
+
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp)
+                                            .height(54.dp)
+                                        ,
+                                        shape = RectangleShape,
+
+                                        ) {
+                                        Text(text = "Вход",
+                                            fontSize = 18.sp)
+
                                     }
 
-                                }
+                                    Text(
+                                        text = "Нажимая войти вы соглашаетесь с офертой",
+                                        Modifier.fillMaxWidth()
+                                            .padding(top = 12.dp)
+                                        ,
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 12.sp,
+                                        color = grey,
+                                        lineHeight = 12.sp,
+                                        fontFamily = FontFamily(Font(R.font.sfpro))
 
+                                    ) }
 
-
-
-
-
-
-
-
-
-                                
                             }
                             composable("sendSms") {
                                 val viewModel = it.sharedViewModel<SampleViewModel>(navController)
@@ -199,7 +288,7 @@ class Autorization : ComponentActivity() {
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(horizontal = 108.dp )
-                                            .padding(top = 160.dp, bottom = 80.dp)
+                                            .padding(top = 170.dp, bottom = 86.dp)
 
 
                                     )
